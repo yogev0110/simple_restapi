@@ -57,7 +57,7 @@ class User(Resource):
         args = user_args.parse_args()
         user = UserModel.query.filter_by(id=id).first()
         if not user:
-            abort(404, "User not found")
+            abort(404)
         user.name = args["name"]
         user.email = args["email"]
         db.session.commit()
@@ -67,7 +67,7 @@ class User(Resource):
     def delete(self, id):
         user = UserModel.query.filter_by(id=id).first()
         if not user:
-            abort(404, "User not found")
+            abort(404)
         db.session.delete(user)
         db.session.commit()
         users = UserModel.query.all()
